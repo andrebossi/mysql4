@@ -34,8 +34,8 @@ file_env() {
 
 _get_config() {
   conf="$1"
-  mysqld_safe --help > /dev/null 
-  cat /var/db/mysql/${HOSTNAME}.err | awk '$1 == "'"$conf"'" { print $2; exit }'
+  mysqld_safe --help > /dev/null
+  cat /etc/my.cnf | grep -i 'datadir=' | cut -d '=' -f 2
 }
 
 DATA_DIR="$(_get_config 'datadir')"
@@ -52,6 +52,7 @@ if [ ! -d "${DATA_DIR}mysql" ]; then
     exit 1
   fi
 
+  echo $"$DATA_DIR"
   mkdir -p "$DATA_DIR"
   chown mysql: "$DATA_DIR"
 
