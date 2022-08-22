@@ -1,4 +1,8 @@
+# Old image for compitability with older headers required by the build of mysql 4 *2002* software
 FROM alpine:3.1
+
+ARG VERSION \
+    BUILD_DATE
 
 WORKDIR /usr/local/src
 
@@ -7,7 +11,6 @@ ENV MYSQL_VER="4.1.21"
 ADD mysql-${MYSQL_VER}.tar.gz ./
 
 COPY my.cnf /etc/my.cnf
-
 COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN set -x; \
